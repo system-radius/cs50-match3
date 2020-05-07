@@ -39,8 +39,7 @@ function love:load()
     [3] = {x = YELLOW_X, y = YELLOW_Y},
     [4] = {x = GREEN_X, y = GREEN_Y},
     [5] = {x = BLUE_X, y = BLUE_Y},
-    [6] = {x = GRAY_X, y = GRAY_Y},
-    [7] = {x = VIOLET_X, y = VIOLET_Y}
+    [6] = {x = GRAY_X, y = GRAY_Y}
   }
 
   local limit = 5
