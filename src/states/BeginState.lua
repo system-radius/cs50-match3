@@ -1,5 +1,8 @@
 BeginState = Class{__includes = BaseState}
 
+--[[
+  Initialize the state.
+]]
 function BeginState:init()
   
   self.transitionAlpha = 255
@@ -7,14 +10,18 @@ function BeginState:init()
 
   self.loading = false
 
+  -- For tracking the label with the level text.
   self.levelY = -64
 
 end
 
+--[[
+  Update the level. Entering the begin state should start with level 0.
+]]
 function BeginState:enter(params)
 
   -- Level up!
-  self.level = params.level + 1
+  self.level = params.level + 1 or 1
   self.finalScore = params.finalScore
 
   self.board = Board(self.level)
@@ -64,9 +71,12 @@ function BeginState:enter(params)
 end
 
 function BeginState:update(dt)
-
+  -- There is nothing to update, as this state is a transition state.
 end
 
+--[[
+  Draw the current state.
+]]
 function BeginState:render()
 
   love.graphics.setColor(95, 205, 228, 200)

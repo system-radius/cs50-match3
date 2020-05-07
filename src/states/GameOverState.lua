@@ -1,5 +1,8 @@
 GameOverState = Class{__includes = BaseState}
 
+--[[
+  Initialize this state
+]]
 function GameOverState:init()
   self.transitionAlpha = 255
 
@@ -8,18 +11,26 @@ function GameOverState:init()
   })
 end
 
+--[[
+  Only the final score is needed from the parameters.
+]]
 function GameOverState:enter(params)
   self.finalScore = params.finalScore
 end
 
+--[[
+  For processing input.
+]]
 function GameOverState:update(dt)
   if love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
     -- Go back to the start screen
-    cycleMusic()
     gStateMachine:change('start')
   end
 end
 
+--[[
+  Draw this state.
+]]
 function GameOverState:render()
 
   love.graphics.setColor(0, 0, 0, 150)

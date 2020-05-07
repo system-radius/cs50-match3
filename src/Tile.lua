@@ -1,8 +1,6 @@
 Tile = Class{}
 
-local accelerationX = TILE_WIDTH / 2
-local accelerationY = TILE_HEIGHT / 2
-
+-- Used for the particle system to generate shiny indicator.
 local lifetime = 1
 local particles = 2
 
@@ -11,6 +9,7 @@ function Tile:init(x, y, offsetX, offsetY, color, pattern, shiny)
   self.x = x
   self.y = y
 
+  -- The display coordinates, transformed from the grid coordinates.
   self.displayX = (x - 1) * TILE_WIDTH + offsetX
   self.displayY = (y - 1) * TILE_HEIGHT + offsetY
 
@@ -20,6 +19,7 @@ function Tile:init(x, y, offsetX, offsetY, color, pattern, shiny)
   self.shiny = shiny
 
   if self.shiny then
+    -- Create shiny particles for the tile.
 
     self.psystemAlpha = 0
     self:shine()
@@ -27,7 +27,6 @@ function Tile:init(x, y, offsetX, offsetY, color, pattern, shiny)
       self:shine()
     end)
 
-    -- self.psystemAlpha = 255
     self.psystems = {}
 
     local string = ''

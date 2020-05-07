@@ -13,17 +13,17 @@ local letters = {
 -- The Y-coordinate for rendering of the letters.
 local lettersY = 103
 
+-- The board offset, used to display tiles at the center.
 local BOARD_OFFSET_X = (VIRTUAL_WIDTH / 2) - (BOARD_WIDTH / 2 * TILE_WIDTH)
 local BOARD_OFFSET_Y = (VIRTUAL_HEIGHT / 2) - (BOARD_HEIGHT / 2 * TILE_HEIGHT)
 
+-- Initialize the current state.
 function StartState:init()
-
-  self.lastMouseX = 0
-  self.lastMouseY = 0
 
   self.highlight = 1
   self.transitionAlpha = 0
 
+  -- Load the colors for giving the letters their different colors.
   self.colors = {
     -- Red
     [1] = {172, 50, 50, 255},
@@ -48,11 +48,13 @@ function StartState:init()
   
   }
 
+  -- The colors for the options, highlighted and default.
   self.defaultColors = {
     [1] = {99, 155, 255, 255},
     [2] = {48, 96, 130, 255}
   }
 
+  -- Start the color shifting.
   Timer.every(0.075, function()
     
     local finalColor = self.colors[#self.colors]
@@ -65,6 +67,7 @@ function StartState:init()
 
   end)
 
+  -- Initialize the display tiles.
   self.tiles = {}
   for y = 1, BOARD_HEIGHT do
     table.insert(self.tiles, {})
@@ -77,6 +80,9 @@ function StartState:init()
 
 end
 
+--[[
+  Mainly reading the inputs.
+]]
 function StartState:update(dt)
 
   if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return')  then
@@ -99,8 +105,12 @@ function StartState:update(dt)
   end
 end
 
+--[[
+  Render the current state.
+]]
 function StartState:render()
 
+  -- Draw the tiles.
   self:renderTiles()
 
   love.graphics.setColor(0, 0, 0, 150)
@@ -140,6 +150,9 @@ function StartState:render()
 
 end
 
+--[[
+  Iterate over the tiles to draw them. Each tile has its own way of rendering itself.
+]]
 function StartState:renderTiles()
 
   for y = 1, BOARD_HEIGHT do
@@ -150,6 +163,9 @@ function StartState:renderTiles()
 
 end
 
+--[[
+  For drawing texts with shadow.
+]]
 function StartState:drawWithShadow(color, gap, string, x, y, limit, align)
 
   love.graphics.setColor(0, 0, 0, 200)
@@ -167,6 +183,9 @@ function StartState:drawWithShadow(color, gap, string, x, y, limit, align)
 
 end
 
+--[[
+  Selection of option.
+]]
 function StartState:selectOption()
 
   if self.highlight == 1 then
