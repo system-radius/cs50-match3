@@ -275,8 +275,34 @@ function Board:clearShiny(match)
     end
   end
 
-  if #patternMatch > 0 then
+  if #patternMatch <= 0 then
+    -- If there are no shiny tiles for the current match,
+    -- exit the function.
+    return
+  end
+
+  local dy = false
+  local dx = false
+
+  local lastTile = nil
+
+  -- Check the type of clearing that will be done.
+  -- E.g. if the match is vertical, clear the whole column,
+  -- or if the match is horizontal, clear the whole row.
+  for i, tile in pairs(match) do
+    if not (lastTile == nil) and not (lastTile.x == tile.x) then
+      dx = true
+    elseif not (lastTile == nil) and not (lastTile.y == tile.y) then
+      dy = true
+    end
+
+    lastTile = tile
+  end
+
+  if dx then
     self:clearCirclePattern(patternMatch)
+  elseif dy then
+    self:clearSquarePattern(patternMatch)
   end
 end
 
